@@ -10,14 +10,13 @@ class InputFormButton extends StatelessWidget {
   final EdgeInsets padding;
 
   const InputFormButton(
-      {Key? key,
+      {super.key,
       required this.onClick,
       this.titleText,
       this.icon,
       this.color,
       this.cornerRadius,
-      this.padding = const EdgeInsets.symmetric(horizontal: 16)})
-      : super(key: key);
+      this.padding = const EdgeInsets.symmetric(horizontal: 16)});
 
   @override
   Widget build(BuildContext context) {
