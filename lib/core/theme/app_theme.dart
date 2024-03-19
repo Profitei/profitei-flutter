@@ -6,18 +6,18 @@ class AppTheme {
 
   static final lightTheme = ThemeData(
     brightness: Brightness.light,
-    primaryColor: kLightPrimaryColor,
+    primaryColor: AppColors.kLightPrimaryColor,
     visualDensity: VisualDensity.adaptivePlatformDensity,
-    scaffoldBackgroundColor: kBackgroundColor,
-    appBarTheme: AppBarTheme(
+    scaffoldBackgroundColor: AppColors.kBackgroundColor,
+    appBarTheme: const AppBarTheme(
       backgroundColor: Colors.white,
-      foregroundColor: kLightSecondaryColor,
+      foregroundColor: AppColors.kLightSecondaryColor,
       elevation: 0,
     ),
     textButtonTheme: TextButtonThemeData(
-        style: TextButton.styleFrom(foregroundColor: kLightSecondaryColor)),
-    colorScheme: ColorScheme.light(secondary: kLightSecondaryColor)
-        .copyWith(background: kLightBackgroundColor),
+        style: TextButton.styleFrom(foregroundColor: AppColors.kLightSecondaryColor)),
+    colorScheme: const ColorScheme.light(secondary: AppColors.kLightSecondaryColor)
+        .copyWith(background:AppColors.kLightBackgroundColor),
   );
 
   // static final darkTheme = ThemeData(
