@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import '../../../domain/entities/order/order_details.dart';
-import '../user/delivery_info_model.dart';
 import 'order_item_model.dart';
 
 List<OrderDetailsModel> orderDetailsModelListFromJson(String str) =>
@@ -28,7 +27,6 @@ class OrderDetailsModel extends OrderDetails {
   const OrderDetailsModel({
     required super.id,
     required List<OrderItemModel> super.orderItems,
-    required DeliveryInfoModel super.deliveryInfo,
     required super.discount,
   });
 
@@ -37,7 +35,6 @@ class OrderDetailsModel extends OrderDetails {
         id: json["_id"],
         orderItems: List<OrderItemModel>.from(
             json["orderItems"].map((x) => OrderItemModel.fromJson(x))),
-        deliveryInfo: DeliveryInfoModel.fromJson(json["deliveryInfo"]),
         discount: json["discount"],
       );
 
@@ -45,7 +42,6 @@ class OrderDetailsModel extends OrderDetails {
         "_id": id,
         "orderItems": List<dynamic>.from(
             (orderItems as List<OrderItemModel>).map((x) => x.toJson())),
-        "deliveryInfo": (deliveryInfo as DeliveryInfoModel).toJson(),
         "discount": discount,
       };
 
@@ -53,7 +49,6 @@ class OrderDetailsModel extends OrderDetails {
         "_id": id,
         "orderItems": List<dynamic>.from(
             (orderItems as List<OrderItemModel>).map((x) => x.toJsonBody())),
-        "deliveryInfo": deliveryInfo.id,
         "discount": discount,
       };
 
@@ -63,6 +58,5 @@ class OrderDetailsModel extends OrderDetails {
           orderItems: entity.orderItems
               .map((orderItem) => OrderItemModel.fromEntity(orderItem))
               .toList(),
-          deliveryInfo: DeliveryInfoModel.fromEntity(entity.deliveryInfo),
           discount: entity.discount);
 }
