@@ -1,11 +1,13 @@
 import 'package:profitei_flutter/core/error/failures.dart';
 import 'package:http/http.dart' as http;
+import 'package:profitei_flutter/data/models/raffle/raffle_model.dart';
 
 import '../../../core/constant/strings.dart';
 import '../../models/summary/summary_model.dart';
 
 abstract class RaffleRemoteDataSource {
   Future<List<RaffleSummaryModel>> getRaffleSummaries();
+  Future<RaffleModel> getRaffleDetail(num raffleId);
 }
 
 class RaffleRemoteDataSourceSourceImpl implements RaffleRemoteDataSource {
@@ -23,6 +25,22 @@ class RaffleRemoteDataSourceSourceImpl implements RaffleRemoteDataSource {
     );
     if (response.statusCode == 200) {
       return summaryModelListFromRemoteJson(response.body);
+    } else {
+      throw ServerFailure();
+    }
+  }
+
+  @override
+  Future<RaffleModel> getRaffleDetail(num raffleId) async {
+    final response = await client.get(
+      Uri.parse('$profiteiBaseUrl/raffle/$raffleId'),
+      headers: {
+        'Content-Type': 'application/json',
+        'api-key': '402c2470-cf86-46ad-bb95-ab4025e0fba2',
+      },
+    );
+    if (response.statusCode == 200) {
+      return raffleModelFromRemoteJson(response.body);
     } else {
       throw ServerFailure();
     }

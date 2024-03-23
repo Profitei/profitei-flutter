@@ -15,6 +15,7 @@ import '../../presentation/views/main/other/profile/profile_screen.dart';
 import '../../presentation/views/main/other/settings/settings_view.dart';
 import '../../presentation/views/order_chekout/order_checkout_view.dart';
 import '../../presentation/views/product/product_details_view.dart';
+import '../../presentation/views/raffle/raffle_details_view.dart';
 import '../error/exceptions.dart';
 
 class AppRouter {
@@ -27,6 +28,7 @@ class AppRouter {
   static const String productDetails = '/product-details';
   // raffle
   static const String raffleSummaries = '/raffle-summaries';
+  static const String raffleDetails = '/raffle-details';
   //other
   static const String userProfile = '/user-profile';
   static const String orderCheckout = '/order-checkout';
@@ -72,8 +74,10 @@ class AppRouter {
       case filter:
         return MaterialPageRoute(builder: (_) => const FilterView());
       case raffleSummaries:
-        return MaterialPageRoute(builder: (_) => const SummaryView());
-      default:
+        return MaterialPageRoute(builder: (_) => const SummaryView());     
+      case raffleDetails:
+        return MaterialPageRoute(builder: (_) => const RaffleDetailsView());
+       default:
         throw const RouteException('Route not found!');
     }
   }

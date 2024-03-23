@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
           create: (context) => di.sl<OrderFetchCubit>()..getOrders(),
         ),
         BlocProvider(
-          create: (context) => di.sl<RaffleSummaryFetchCubit>()..getRaffleSummaries(),
+          create: (context) => di.sl<RaffleSummaryFetchCubit>(),
         ),
       ],
       child: OKToast(

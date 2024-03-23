@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:profitei_flutter/core/constant/colors.dart';
 import 'package:profitei_flutter/domain/entities/summary/summary.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -22,7 +23,7 @@ class SummaryCard extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 10),
       child: product == null
           ? Shimmer.fromColors(
-              baseColor: Colors.grey.shade100,
+              baseColor: AppColors.primary100,
               highlightColor: Colors.white,
               child: buildBody(context),
             )
@@ -33,34 +34,18 @@ class SummaryCard extends StatelessWidget {
   Widget buildBody(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (product != null) {
           Navigator.of(context)
-              .pushNamed(AppRouter.productDetails, arguments: product);
-        }
+              .pushNamed(AppRouter.raffleDetails);
       },
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-              child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.shade100,
-                  blurRadius: 4,
-                  // offset: Offset(4, 8), // Shadow position
-                ),
-              ],
-            ),
-            child: Card(
-              color: Colors.white,
-              elevation: 2,
-              margin: const EdgeInsets.all(4),
-              clipBehavior: Clip.antiAlias,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
+      child: Card(
+        elevation: 0.5,
+        margin: const EdgeInsets.all(4),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(4),
+        ),
+        child: Column(
+          children: [
+            Expanded(
               child: product == null
                   ? Material(
                       child: GridTile(
@@ -76,11 +61,12 @@ class SummaryCard extends StatelessWidget {
                   : Hero(
                       tag: product!.id,
                       child: Padding(
-                        padding: const EdgeInsets.all(32.0),
+                        padding: const EdgeInsets.all(4.0),
                         child: CachedNetworkImage(
+                          fit: BoxFit.contain,
                           imageUrl: product!.image,
                           placeholder: (context, url) => Shimmer.fromColors(
-                            baseColor: Colors.grey.shade100,
+                            baseColor: AppColors.primary100,
                             highlightColor: Colors.white,
                             child: Container(),
                           ),
@@ -90,11 +76,8 @@ class SummaryCard extends StatelessWidget {
                       ),
                     ),
             ),
-          )),
-          Padding(
-              padding: const EdgeInsets.fromLTRB(4, 4, 4, 0),
-              child: SizedBox(
-                height: 18,
+            Padding(
+                padding: const EdgeInsets.all(4),
                 child: product == null
                     ? Container(
                         width: 120,
@@ -103,37 +86,40 @@ class SummaryCard extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8),
                         ),
                       )
-                    : Text(
-                        product!.name,
-                        style: const TextStyle(fontWeight: FontWeight.w600),
-                      ),
-              )),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(4, 4, 4, 0),
-            child: Row(
-              children: [
-                SizedBox(
-                  height: 18,
-                  child: product == null
-                      ? Container(
-                          width: 100,
-                          decoration: BoxDecoration(
-                            color: Colors.grey,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        )
-                      : Text(
-                          r'$' + product!.price.toString(),
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                          ),
+                    : Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          product!.name,
+                          style: const TextStyle(fontWeight: FontWeight.w600),
                         ),
-                )
-              ],
+                      )),
+            Padding(
+              padding: const EdgeInsets.all(4),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: product == null
+                    ? Container(
+                        width: 100,
+                        decoration: BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      )
+                    : Text(
+                        r'R$' + product!.price.toString(),
+                        style: const TextStyle(
+                          color: AppColors.primary500,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+              ),
             ),
-          )
-        ],
+            const Padding(
+              padding: EdgeInsets.all(4),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import '../../../domain/entities/raffle/raffle.dart';
 import '../category/category_model.dart';
 import 'property_model.dart';
@@ -68,3 +70,6 @@ class RaffleModel extends Raffle {
             .toList(),
       );
 }
+
+RaffleModel raffleModelFromRemoteJson(String str) =>
+    RaffleModel.fromJson(json.decode(str));

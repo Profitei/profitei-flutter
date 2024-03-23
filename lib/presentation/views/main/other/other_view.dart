@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:profitei_flutter/presentation/blocs/summary/summary_fetch_cubit.dart';
 
 import '../../../../core/constant/images.dart';
 import '../../../../core/router/app_router.dart';
@@ -158,17 +159,20 @@ class OtherView extends StatelessWidget {
             title: "Notifications",
           ),
           const SizedBox(height: 6),
+          BlocBuilder<RaffleSummaryFetchCubit, RaffleSummaryFetchState>(
+            builder: (context, state) => OtherItemCard(
+              onClick: () {
+                context.read<RaffleSummaryFetchCubit>().getRaffleSummaries();
+                Navigator.of(context).pushNamed(AppRouter.raffleSummaries);
+              },
+              title: "Summary",
+            ),
+          ),
           OtherItemCard(
             onClick: () {
               Navigator.of(context).pushNamed(AppRouter.about);
             },
             title: "About",
-          ),
-          OtherItemCard(
-            onClick: () {
-              Navigator.of(context).pushNamed(AppRouter.raffleSummaries);
-            },
-            title: "Summary",
           ),
           const SizedBox(height: 6),
           BlocBuilder<UserBloc, UserState>(

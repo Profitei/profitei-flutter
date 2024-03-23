@@ -6,5 +6,5 @@ import '../entities/summary/summary.dart';
 
 abstract class RaffleRepository {
   Future<Either<Failure, List<RaffleSummary>>> getRaffleSummaries();
-  Future<Either<Failure, List<Raffle>>> getRaffle(id);
+  Future<Either<Failure, Raffle>> getRaffle(num id);
 }

@@ -32,9 +32,17 @@ class RaffleRepositoryImpl implements RaffleRepository {
   }
 
   @override
-
-Future<Either<Failure, List<Raffle>>> getRaffle(id) async {
-    return Future.value(Left(NetworkFailure()));
+Future<Either<Failure, Raffle>> getRaffle(id) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final raffle = await remoteDataSource.getRaffleDetail(id);
+        return Right(raffle);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(NetworkFailure());
+    }
   }
 
 }

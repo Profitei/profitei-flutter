@@ -1,6 +1,9 @@
 const String kUserAvatar = "assets/other_images/user.png";
 const String kAppLogo = "assets/other_images/logo.png";
 
+// Temp File
+const String kButterfly = "assets/other_images/butterfly.png";
+
 //Status Image
 const String kEmptyCart = "assets/status_image/empty-cart.png";
 const String kEmptyDeliveryInfo = "assets/status_image/delivery-info.png";

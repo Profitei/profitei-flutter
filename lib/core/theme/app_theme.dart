@@ -6,17 +6,17 @@ class AppTheme {
 
   static final lightTheme = ThemeData(
     brightness: Brightness.light,
-    primaryColor: AppColors.kLightPrimaryColor,
+    primaryColor: AppColors.primary500,
     visualDensity: VisualDensity.adaptivePlatformDensity,
     scaffoldBackgroundColor: AppColors.kBackgroundColor,
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.white,
-      foregroundColor: AppColors.kLightSecondaryColor,
+      foregroundColor: AppColors.primary900,
       elevation: 0,
     ),
     textButtonTheme: TextButtonThemeData(
-        style: TextButton.styleFrom(foregroundColor: AppColors.kLightSecondaryColor)),
-    colorScheme: const ColorScheme.light(secondary: AppColors.kLightSecondaryColor)
+        style: TextButton.styleFrom(foregroundColor: AppColors.primary300)),
+    colorScheme: const ColorScheme.light(secondary: AppColors.primary300)
         .copyWith(background:AppColors.kLightBackgroundColor),
   );
 
