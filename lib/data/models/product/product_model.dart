@@ -13,7 +13,7 @@ class ProductModel extends Product {
     required super.createdAt,
     required super.updatedAt,
   });
-
+  
   factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
         id: json["_id"],
         name: json["name"],

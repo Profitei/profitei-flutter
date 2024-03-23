@@ -24,6 +24,8 @@ class AppRouter {
   static const String signUp = '/sign-up';
   //products
   static const String productDetails = '/product-details';
+  // raffle
+  static const String raffleSummaries = '/raffle-summaries';
   //other
   static const String userProfile = '/user-profile';
   static const String orderCheckout = '/order-checkout';

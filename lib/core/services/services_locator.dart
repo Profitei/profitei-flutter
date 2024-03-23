@@ -2,6 +2,12 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:profitei_flutter/data/data_sources/remote/raffle_remote_data_source.dart';
+import 'package:profitei_flutter/data/repositories/raffle_repository_impl.dart';
+import 'package:profitei_flutter/domain/repositories/raffle_repository.dart';
+import 'package:profitei_flutter/domain/usecases/raffle/get_remote_raffle_summary_usecase.dart';
+import 'package:profitei_flutter/domain/usecases/raffle/get_remote_raffle_usecase.dart';
+import 'package:profitei_flutter/presentation/blocs/summary/summary_fetch_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../data/data_sources/local/cart_local_data_source.dart';
@@ -159,6 +165,26 @@ Future<void> init() async {
   );
   sl.registerLazySingleton<UserRemoteDataSource>(
     () => UserRemoteDataSourceImpl(client: sl()),
+  );
+
+  //Features - Raffle Summaries
+  // Bloc
+  sl.registerFactory(
+    () => RaffleSummaryFetchCubit(sl()),
+  );
+  // Use cases
+  sl.registerLazySingleton(() => GetRemoteRaffleSummaryUseCase(sl()));
+  sl.registerLazySingleton(() => GetRemoteRaffleUseCase(sl()));
+  // Repository
+  sl.registerLazySingleton<RaffleRepository>(
+    () => RaffleRepositoryImpl(
+      remoteDataSource: sl(),
+      networkInfo: sl(),
+    ),
+  );
+  // Data sources
+  sl.registerLazySingleton<RaffleRemoteDataSource>(
+    () => RaffleRemoteDataSourceSourceImpl(client: sl()),
   );
 
   ///***********************************************

@@ -1,7 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:profitei_flutter/presentation/blocs/summary/summary_fetch_cubit.dart';
 
 import 'core/constant/strings.dart';
 import 'core/router/app_router.dart';
@@ -54,6 +56,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => di.sl<OrderFetchCubit>()..getOrders(),
+        ),
+        BlocProvider(
+          create: (context) => di.sl<RaffleSummaryFetchCubit>()..getRaffleSummaries(),
         ),
       ],
       child: OKToast(
