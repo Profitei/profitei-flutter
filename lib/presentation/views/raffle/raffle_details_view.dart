@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:profitei_flutter/core/constant/colors.dart';
 import 'package:profitei_flutter/core/constant/images.dart';
 
 class RaffleDetailsView extends StatelessWidget {
@@ -6,155 +7,153 @@ class RaffleDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: Colors.white,
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('ST | Butterfly Knife | MW'),
+        centerTitle: true,
+      ),
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Column(
-          children: <Widget>[
-            ImageWidget(), // Extracted as a separate widget for the image.
-            PriceInfoWidget(), // Extracted as a separate widget for price information.
-            SelectNamesSection(), // Extracted as a separate widget for name selection.
-            StatsInfo(), // Extracted as a separate widget for statistics information.
-            ReviewOrderButton(), // Extracted as a separate widget for the review order button.
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: Image.asset(
+                  kButterfly), // Substitua com a URL da sua imagem
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      ColorIndicatorBar(), // Widget para a barra de indicadores de cores
+                      Spacer(),
+                      Text('R\$100,00',
+                          style: TextStyle(
+                              fontSize: 24, fontWeight: FontWeight.bold)),
+                      SizedBox(width: 8),
+                      Text('por nome',
+                          style: TextStyle(fontSize: 16, color: Colors.grey)),
+                    ],
+                  ),
+                  SizedBox(height: 24),
+                  StatsList(), // Widget para a lista de estatísticas
+                  SizedBox(height: 24),
+                  Text('Selecione seus nomes:',
+                      style: TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.bold)),
+                  SizedBox(height: 16),
+                  NamesList(), // Widget para a lista de nomes
+                ],
+              ),
+            ),
           ],
+        ),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        child: SizedBox(
+          height: 80,
+          child: Center(
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.deepPurple, // Cor de fundo do botão
+                shape: RoundedRectangleBorder(
+                  borderRadius:
+                      BorderRadius.circular(18.0), // Bordas arredondadas
+                ),
+              ),
+              onPressed: () {},
+              child: const Text('Revisar Pedido (2xR\$100,00)',
+                  style: TextStyle(fontSize: 18, color: Colors.white)),
+            ),
+          ),
         ),
       ),
     );
   }
 }
 
-class ImageWidget extends StatelessWidget {
-  const ImageWidget({super.key});
+class ColorIndicatorBar extends StatelessWidget {
+  const ColorIndicatorBar({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Replace 'assets/images/Butterfly1.png' with your actual image asset.
-    return Padding(
-      padding: const EdgeInsets.all(10),
-      child: Image.asset(kButterfly, fit: BoxFit.fitWidth),
-    );
+    return Row(children: <Widget>[
+      Container(color: Colors.blue, width: 20, height: 20),
+      Container(color: Colors.red, width: 20, height: 20),
+      Container(color: Colors.green, width: 20, height: 20),
+      Container(color: Colors.yellow, width: 20, height: 20),
+      Container(color: Colors.orange, width: 20, height: 20),
+    ]);
   }
 }
 
-class PriceInfoWidget extends StatelessWidget {
-  const PriceInfoWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(13),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          ColorIndicator(color: Colors.blue),
-          ColorIndicator(color: Colors.green),
-          ColorIndicator(color: Colors.yellow),
-          ColorIndicator(color: Colors.orange),
-          ColorIndicator(color: Colors.red),
-          const PriceTag(),
-        ],
-      ),
-    );
-  }
-}
-
-class ColorIndicator extends StatelessWidget {
-  final Color color;
-
-  ColorIndicator({super.key, required this.color});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 10,
-      height: 10,
-      color: color,
-    );
-  }
-}
-
-class PriceTag extends StatelessWidget {
-  const PriceTag({super.key});
+class StatsList extends StatelessWidget {
+  const StatsList({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const Column(
-      children: <Widget>[
-        Text('R\$100,00', style: TextStyle(fontSize: 20, color: Colors.black)),
-        Text('por nome', style: TextStyle(fontSize: 12, color: Colors.black)),
+      children: [
+        StatItem(label: 'Float', value: '0.0798944533'),
+        StatItem(label: 'Raridade', value: 'Covert'),
+        StatItem(label: 'Padrão', value: '921'),
+        // Adicione mais StatItem conforme necessário
       ],
     );
   }
 }
 
-class SelectNamesSection extends StatelessWidget {
-  const SelectNamesSection({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.all(10),
-      child:
-          Text('Selecione seus nomes:', style: TextStyle(color: Colors.black)),
-    );
-  }
-}
-
-class StatsInfo extends StatelessWidget {
-  const StatsInfo({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    // This should ideally be a ListView.builder or similar.
-    return Column(
-      children: <Widget>[
-        StatRow(label: 'Float', value: '0.0798944533'),
-        StatRow(label: 'Raridade', value: 'Covert'),
-        StatRow(label: 'Padrão', value: '921'),
-        StatRow(label: 'Nível Desgaste', value: 'Minimal Wear'),
-        StatRow(label: 'Tipo', value: 'StatTrack'),
-        StatRow(label: 'Preço Steam', value: 'R\$64.893,32'),
-      ],
-    );
-  }
-}
-
-class StatRow extends StatelessWidget {
+class StatItem extends StatelessWidget {
   final String label;
   final String value;
 
-  StatRow({super.key, required this.label, required this.value});
+  const StatItem({super.key, required this.label, required this.value});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 9),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Text(label,
-              style: const TextStyle(fontSize: 16, color: Colors.deepPurple)),
-          Text(value, style: const TextStyle(fontSize: 12, color: Colors.grey)),
-        ],
-      ),
+    return Row(
+      children: [
+        Text(label, style: const TextStyle(fontSize: 16, color: Colors.purple)),
+        const Spacer(),
+        Text(value, style: const TextStyle(fontSize: 16, color: Colors.grey)),
+      ],
     );
   }
 }
 
-class ReviewOrderButton extends StatelessWidget {
-  const ReviewOrderButton({super.key});
+class NamesList extends StatelessWidget {
+  const NamesList({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        foregroundColor: Colors.white,
-        backgroundColor: Colors.deepPurple, // foreground
-      ),
-      onPressed: () {
-        // Action to review order
+    // Aqui você pode substituir por um ListView.builder para dados dinâmicos
+    return const Column(
+      children: [
+        NameItem(name: 'Fallen'),
+        NameItem(name: 'Yurih'),
+        NameItem(name: 'Donk'),
+        // Adicione mais NameItem conforme necessário
+      ],
+    );
+  }
+}
+
+class NameItem extends StatelessWidget {
+  final String name;
+
+  const NameItem({super.key, required this.name});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(name, style: const TextStyle(fontSize: 18)),
+      trailing: const Icon(Icons.check_circle, color: Colors.purple),
+      onTap: () {
+        // Adicione a ação de seleção aqui
       },
-      child: const Text('Revisar Pedido (2xR\$100,00)'),
     );
   }
 }
