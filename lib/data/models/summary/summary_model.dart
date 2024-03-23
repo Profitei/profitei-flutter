@@ -39,4 +39,4 @@ class RaffleSummaryModel extends RaffleSummary {
 
 List<RaffleSummaryModel> summaryModelListFromRemoteJson(String str) =>
     List<RaffleSummaryModel>.from(
-        json.decode(str)['data'].map((x) => RaffleSummaryModel.fromJson(x)));
+        json.decode(str).map((x) => RaffleSummaryModel.fromJson(x)));

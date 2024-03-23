@@ -164,6 +164,12 @@ class OtherView extends StatelessWidget {
             },
             title: "About",
           ),
+          OtherItemCard(
+            onClick: () {
+              Navigator.of(context).pushNamed(AppRouter.raffleSummaries);
+            },
+            title: "Summary",
+          ),
           const SizedBox(height: 6),
           BlocBuilder<UserBloc, UserState>(
             builder: (context, state) {

@@ -15,7 +15,7 @@ class RaffleRemoteDataSourceSourceImpl implements RaffleRemoteDataSource {
   @override
   Future<List<RaffleSummaryModel>> getRaffleSummaries() async {
     final response = await client.get(
-      Uri.parse('$baseUrl/orders'),
+      Uri.parse('$profiteiBaseUrl/raffle/summary'),
       headers: {
         'Content-Type': 'application/json',
         'api-key': '402c2470-cf86-46ad-bb95-ab4025e0fba2',

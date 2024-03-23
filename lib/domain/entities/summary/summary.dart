@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 
 class RaffleSummary extends Equatable {
-  final int id;
+  final num id;
   final String name;
   final String image;
-  final double price;
+  final num price;
 
   const RaffleSummary({
     required this.id,

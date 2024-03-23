@@ -1,5 +1,6 @@
 import 'package:profitei_flutter/presentation/views/main/home/filter/filter_view.dart';
 import 'package:flutter/material.dart';
+import 'package:profitei_flutter/presentation/views/main/other/summary/summary_view.dart';
 
 import '../../domain/entities/cart/cart_item.dart';
 import '../../domain/entities/product/product.dart';
@@ -70,6 +71,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const AboutView());
       case filter:
         return MaterialPageRoute(builder: (_) => const FilterView());
+      case raffleSummaries:
+        return MaterialPageRoute(builder: (_) => const SummaryView());
       default:
         throw const RouteException('Route not found!');
     }
