@@ -1,31 +1,36 @@
-import 'package:profitei_flutter/core/constant/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:profitei_flutter/core/constant/colors.dart';
 
 class AppTheme {
   const AppTheme._();
 
   static final lightTheme = ThemeData(
     brightness: Brightness.light,
-    primaryColor: AppColors.primary500,
-    visualDensity: VisualDensity.adaptivePlatformDensity,
-    scaffoldBackgroundColor: AppColors.kBackgroundColor,
-    appBarTheme: const AppBarTheme(
-      backgroundColor: Colors.white,
-      foregroundColor: AppColors.primary900,
-      elevation: 0,
+    useMaterial3: true,
+    textTheme: const TextTheme(
+      displayLarge: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+      bodyLarge: TextStyle(fontSize: 18, color: Colors.black87),
     ),
-    textButtonTheme: TextButtonThemeData(
-        style: TextButton.styleFrom(foregroundColor: AppColors.primary300)),
-    colorScheme: const ColorScheme.light(secondary: AppColors.primary300)
-        .copyWith(background:AppColors.kLightBackgroundColor),
+    appBarTheme: const AppBarTheme(
+      backgroundColor: AppColors.primary500,
+      titleTextStyle: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+      iconTheme: IconThemeData(color: Colors.white),
+    ),
+    colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary500).copyWith(brightness: Brightness.light),
   );
 
-  // static final darkTheme = ThemeData(
-  //     brightness: Brightness.dark,
-  //     primaryColor: darkPrimaryColor,
-  //     visualDensity: VisualDensity.adaptivePlatformDensity,
-  //     textButtonTheme: TextButtonThemeData(
-  //         style: TextButton.styleFrom(foregroundColor: darkTextColor)),
-  //     colorScheme: ColorScheme.light(secondary: lightSecondaryColor)
-  //         .copyWith(background: darkBackgroundColor));
+  static final darkTheme = ThemeData(
+    brightness: Brightness.dark,
+    useMaterial3: true,
+    textTheme: const TextTheme(
+      displayLarge: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+      bodyLarge: TextStyle(fontSize: 18, color: Colors.white),
+    ),
+    appBarTheme: const AppBarTheme(
+      backgroundColor: AppColors.primary500,
+      titleTextStyle: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+      iconTheme: IconThemeData(color: Colors.white),
+    ),
+    colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary500).copyWith(brightness: Brightness.dark),
+  );
 }

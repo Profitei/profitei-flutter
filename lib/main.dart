@@ -68,6 +68,8 @@ class MyApp extends StatelessWidget {
           onGenerateRoute: AppRouter.onGenerateRoute,
           title: appTitle,
           theme: AppTheme.lightTheme,
+          darkTheme: AppTheme.darkTheme,
+          themeMode: ThemeMode.system, // Adapts to systems theme
           builder: EasyLoading.init(),
         ),
       ),
