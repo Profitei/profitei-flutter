@@ -13,20 +13,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-
-      - uses: actions/setup-java@v3
-        with:
-          distribution: 'zulu'
-          java-version: "12.x"
-    
+      - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.10.0'
-          channel: 'stable'
-      
+          channel: "stable"
+      - run: flutter --version
+
       - name: Install dependencies
         run: flutter pub get
-        
+
       - name: Run tests
         run: flutter test
