@@ -4,11 +4,11 @@ import '../category/category.dart';
 import 'property.dart';
 import 'ticket.dart';
 
-class Raffle extends Equatable{
+class Raffle extends Equatable {
   final int id;
   final String name;
   final String image;
-  final double price;
+  final num price;
   final int categoryId;
   final String status;
   final DateTime created;
@@ -31,6 +31,6 @@ class Raffle extends Equatable{
     required this.tickets,
   });
 
-    @override
+  @override
   List<Object?> get props => [id];
 }

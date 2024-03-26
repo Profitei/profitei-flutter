@@ -4,7 +4,6 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:profitei_flutter/domain/usecases/user/sign_out_usecase.dart';
 import 'package:profitei_flutter/domain/usecases/user/sign_up_usecase.dart';
-import 'package:flutter/cupertino.dart';
 
 import '../../../core/error/failures.dart';
 import '../../../core/usecases/usecase.dart';

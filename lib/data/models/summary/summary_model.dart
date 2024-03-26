@@ -1,8 +1,9 @@
 import 'dart:convert';
 
 import 'package:profitei_flutter/domain/entities/summary/summary.dart';
+
 class RaffleSummaryModel extends RaffleSummary {
-  RaffleSummaryModel({
+  const RaffleSummaryModel({
     required super.id,
     required super.name,
     required super.image,

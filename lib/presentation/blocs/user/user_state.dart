@@ -1,6 +1,5 @@
 part of 'user_bloc.dart';
 
-@immutable
 abstract class UserState extends Equatable {}
 
 class UserInitial extends UserState {

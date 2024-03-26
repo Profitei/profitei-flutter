@@ -1,6 +1,5 @@
 part of 'summary_fetch_cubit.dart';
 
-@immutable
 abstract class RaffleSummaryFetchState {
   final List<RaffleSummary> raffleSummary;
   const RaffleSummaryFetchState(this.raffleSummary);

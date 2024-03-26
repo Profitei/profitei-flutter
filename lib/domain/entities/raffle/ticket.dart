@@ -1,10 +1,10 @@
 class Ticket {
-  final int id;
+  final num id;
   final String name;
   final bool winner;
   final String status;
-  final int raffleId;
-  final int? userId;
+  final num raffleId;
+  final num? userId;
   final DateTime created;
   final DateTime modified;
 

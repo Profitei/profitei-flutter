@@ -1,56 +1,79 @@
 import 'package:flutter/material.dart';
-import 'package:profitei_flutter/core/constant/images.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:profitei_flutter/domain/entities/raffle/property.dart';
+import 'package:profitei_flutter/domain/entities/raffle/raffle.dart';
+import 'package:profitei_flutter/domain/entities/raffle/ticket.dart';
+import 'package:profitei_flutter/presentation/blocs/raffle/raffle_cubit.dart';
 
 class RaffleDetailsView extends StatelessWidget {
   const RaffleDetailsView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    context.read<RaffleCubit>().getRaffle(1);
     return Scaffold(
       appBar: AppBar(title: const Text('ST | Butterfly Knife | MW')),
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Center(
-              child:
-                  Image.asset(kButterfly), // Substitua com a URL da sua imagem
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
+      body: BlocBuilder<RaffleCubit, RaffleState>(
+        builder: (context, state) {
+          if (state is RaffleLoading) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is RaffleSuccess) {
+            return SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      Spacer(),
-                      Text('R\$100,00',
-                          style: TextStyle(
-                              fontSize: 24, fontWeight: FontWeight.bold)),
-                      SizedBox(width: 8),
-                      Text('por rifa',
-                          style: TextStyle(fontSize: 16, color: Colors.grey)),
-                    ],
+                  Center(
+                    child: Image.network(state
+                        .raffle!.image), // Substitua com a URL da sua imagem
                   ),
-                  CustomIndicatorWithArrow(
-                      arrowPositionPercentage:
-                          2), // Widget para o indicador com seta// Widget para a barra de indicadores de cores
-                  SizedBox(height: 24),
-                  StatsList(), // Widget para a lista de estatísticas
-                  SizedBox(height: 24),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text('Selecione suas rifas:',
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold)),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            const Spacer(),
+                            Text(
+                              // Aqui vamos formatar o preço corretamente
+                              'R\$${state.raffle!.price.toStringAsFixed(2)}',
+                              style: const TextStyle(
+                                  fontSize: 24, fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(width: 8),
+                            const Text('por rifa',
+                                style: TextStyle(
+                                    fontSize: 16, color: Colors.grey)),
+                          ],
+                        ),
+                        const CustomIndicatorWithArrow(
+                            arrowPositionPercentage:
+                                2), // Widget para o indicador com seta// Widget para a barra de indicadores de cores
+                        const SizedBox(height: 24),
+                        StatsList(
+                            properties: state.raffle!
+                                .properties), // Passa as propriedades da rifa
+                        const SizedBox(height: 24),
+                        const Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text('Selecione suas rifas:',
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold)),
+                        ),
+                        const SizedBox(height: 16),
+                        NamesList(
+                            tickets: state.raffle!
+                                .tickets), // Widget para a lista de nomes
+                      ],
+                    ),
                   ),
-                  SizedBox(height: 16),
-                  NamesList(), // Widget para a lista de nomes
                 ],
               ),
-            ),
-          ],
-        ),
+            );
+          } else {
+            return const Center(child: Text('Erro ao carregar o sorteio'));
+          }
+        },
       ),
       bottomNavigationBar: BottomAppBar(
         child: SizedBox(
@@ -76,17 +99,18 @@ class RaffleDetailsView extends StatelessWidget {
 }
 
 class StatsList extends StatelessWidget {
-  const StatsList({super.key});
+  final List<Property> properties;
+
+  // O construtor agora exige uma lista de Property.
+  const StatsList({super.key, required this.properties});
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
-      children: [
-        StatItem(label: 'Float', value: '0.0798944533'),
-        StatItem(label: 'Raridade', value: 'Covert'),
-        StatItem(label: 'Padrão', value: '921'),
-        // Adicione mais StatItem conforme necessário
-      ],
+    return Column(
+      children: properties
+          .map((property) =>
+              StatItem(label: property.name, value: property.value.toString()))
+          .toList(),
     );
   }
 }
@@ -113,21 +137,21 @@ class StatItem extends StatelessWidget {
 }
 
 class NamesList extends StatelessWidget {
-  const NamesList({super.key});
+  final List<Ticket> tickets;
+  const NamesList({super.key, required this.tickets});
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    return ListView.separated(
       shrinkWrap:
           true, // Continua a permitir que o ListView seja ajustado ao tamanho dos seus filhos.
       physics:
           const NeverScrollableScrollPhysics(), // Desativa a rolagem dentro deste ListView específico.
-      children: const [
-        NameItem(name: 'Fallen'),
-        NameItem(name: 'Yurih'),
-        NameItem(name: 'Donk'),
-        // Adicione mais NameItem conforme necessário
-      ],
+      itemCount: tickets.length,
+      itemBuilder: (context, index) {
+        return NameItem(name: tickets[index].name);
+      },
+      separatorBuilder: (context, index) => const Divider(),
     );
   }
 }
@@ -163,7 +187,6 @@ class _NameItemState extends State<NameItem> {
           ),
           onTap: _toggleSelection,
         ),
-        const Divider(),
       ],
     );
   }

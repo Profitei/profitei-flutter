@@ -7,6 +7,7 @@ import 'package:profitei_flutter/data/repositories/raffle_repository_impl.dart';
 import 'package:profitei_flutter/domain/repositories/raffle_repository.dart';
 import 'package:profitei_flutter/domain/usecases/raffle/get_remote_raffle_summary_usecase.dart';
 import 'package:profitei_flutter/domain/usecases/raffle/get_remote_raffle_usecase.dart';
+import 'package:profitei_flutter/presentation/blocs/raffle/raffle_cubit.dart';
 import 'package:profitei_flutter/presentation/blocs/summary/summary_fetch_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -140,7 +141,7 @@ Future<void> init() async {
   sl.registerLazySingleton<OrderRemoteDataSource>(
     () => OrderRemoteDataSourceSourceImpl(client: sl()),
   );
-  
+
   //Features - User
   // Bloc
   sl.registerFactory(
@@ -171,6 +172,9 @@ Future<void> init() async {
   // Bloc
   sl.registerFactory(
     () => RaffleSummaryFetchCubit(sl()),
+  );
+  sl.registerFactory(
+    () => RaffleCubit(sl()),
   );
   // Use cases
   sl.registerLazySingleton(() => GetRemoteRaffleSummaryUseCase(sl()));

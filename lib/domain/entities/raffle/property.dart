@@ -1,8 +1,8 @@
 class Property {
-  final int id;
+  final num id;
   final String name;
   final String value;
-  final int raffleId;
+  final num raffleId;
 
   Property({
     required this.id,

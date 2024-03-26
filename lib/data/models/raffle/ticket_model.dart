@@ -1,21 +1,20 @@
 import 'package:profitei_flutter/domain/entities/raffle/ticket.dart';
 
-class TicketModel extends Ticket{
-
+class TicketModel extends Ticket {
   TicketModel({
     required super.id,
     required super.raffleId,
     required super.name,
     required super.status,
     required super.created,
-    required super.modified, 
+    required super.modified,
     required super.winner,
   });
 
   factory TicketModel.fromJson(Map<String, dynamic> json) {
     return TicketModel(
       id: json['id'],
-      raffleId: json['raffle_id'],
+      raffleId: json['raffleId'],
       name: json['name'],
       status: json['status'],
       created: DateTime.parse(json['created']),
@@ -34,7 +33,7 @@ class TicketModel extends Ticket{
       'winner': winner,
     };
   }
-  
+
   factory TicketModel.fromEntity(Ticket ticket) {
     return TicketModel(
       id: ticket.id,

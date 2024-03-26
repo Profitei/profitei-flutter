@@ -21,11 +21,11 @@ class RaffleModel extends Raffle {
   });
 
   factory RaffleModel.fromJson(Map<String, dynamic> json) => RaffleModel(
-        id: json["_id"],
+        id: json["id"],
         name: json["name"],
         image: json["image"],
         price: json["price"],
-        categoryId: json["category_id"],
+        categoryId: json["categotyId"],
         status: json["status"],
         created: DateTime.parse(json["created"]),
         modified: DateTime.parse(json["modified"]),
@@ -35,8 +35,8 @@ class RaffleModel extends Raffle {
         tickets: List<TicketModel>.from(
             json["tickets"].map((x) => TicketModel.fromJson(x))),
       );
-      
-    Map<String, dynamic> toJson() => {
+
+  Map<String, dynamic> toJson() => {
         "_id": id,
         "name": name,
         "image": image,
@@ -52,7 +52,7 @@ class RaffleModel extends Raffle {
             (tickets as List<TicketModel>).map((x) => x.toJson())),
       };
 
-      factory RaffleModel.fromEntity(Raffle entity) => RaffleModel(
+  factory RaffleModel.fromEntity(Raffle entity) => RaffleModel(
         id: entity.id,
         name: entity.name,
         image: entity.image,
