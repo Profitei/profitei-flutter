@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:profitei_flutter/domain/entities/raffle/property.dart';
-import 'package:profitei_flutter/domain/entities/raffle/raffle.dart';
 import 'package:profitei_flutter/domain/entities/raffle/ticket.dart';
 import 'package:profitei_flutter/presentation/blocs/raffle/raffle_cubit.dart';
 
@@ -87,7 +86,20 @@ class RaffleDetailsView extends StatelessWidget {
                       BorderRadius.circular(18.0), // Bordas arredondadas
                 ),
               ),
-              onPressed: () {},
+              onPressed: () {
+                showModalBottomSheet<void>(
+                  context: context,
+                  isScrollControlled: true,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(24.0),
+                  ),
+                  builder: (BuildContext context) {
+                    return SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.7,
+                        child: const Center());
+                  },
+                );
+              },
               child: const Text('Revisar Pedido (2xR\$100,00)',
                   style: TextStyle(fontSize: 18, color: Colors.white)),
             ),

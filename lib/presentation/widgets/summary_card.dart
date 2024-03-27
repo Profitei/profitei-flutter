@@ -34,8 +34,7 @@ class SummaryCard extends StatelessWidget {
   Widget buildBody(BuildContext context) {
     return GestureDetector(
       onTap: () {
-          Navigator.of(context)
-              .pushNamed(AppRouter.raffleDetails);
+        Navigator.of(context).pushNamed(AppRouter.raffleDetails);
       },
       child: Card(
         elevation: 0.5,
@@ -106,7 +105,7 @@ class SummaryCard extends StatelessWidget {
                         ),
                       )
                     : Text(
-                        r'R$' + product!.price.toString(),
+                        r'R$' + product!.price.toStringAsFixed(2),
                         style: const TextStyle(
                           color: AppColors.primary500,
                           fontSize: 16,
